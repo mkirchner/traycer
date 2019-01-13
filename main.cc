@@ -5,9 +5,12 @@
  * Distributed under terms of the MIT license.
  */
 
+#include <cfloat>
+#include <cstdlib>
 #include <iostream>
 #include <memory>
-#include <cfloat>
+
+#include "camera.h"
 #include "objcollection.h"
 #include "ray.h"
 #include "sphere.h"
@@ -31,11 +34,13 @@ Vec3 color(const Ray& r, const ObjCollection& world) {
 void writeImage() {
     int nx = 200;
     int ny = 100;
+    int ns = 50;
     // camera position
     Vec3 lower_left(-2.0, -1.0, -1.0);
     Vec3 origin(0.0, 0.0, 0.0);
-    Vec3 dx(4.0, 0.0, 0.0);
-    Vec3 dy(0.0, 2.0, 0.0);
+    Vec3 vx(4.0, 0.0, 0.0);
+    Vec3 vy(0.0, 2.0, 0.0);
+    Camera cam(lower_left, vx, vy, origin);
     ObjCollection world;
     // center sphere
     Vec3 center = Vec3(0.0, 0.0, -1.0);
@@ -48,11 +53,14 @@ void writeImage() {
     std::cout << "P3\n" << nx << " " << ny << "\n255\n";
     for (int y = ny-1; y >=0; --y) {
         for (int x = 0; x < nx; ++x) {
-            float u = float(x)/float(nx);
-            float v = float(y)/float(ny);
-            Ray r(origin, lower_left + u*dx + v*dy);
-            Vec3 px = color(r, world);
-            px *= 255.99;
+            Vec3 px(0.0, 0.0, 0.0);
+            for (int s = 0; s < ns; ++s) {
+                float u = float(x + drand48())/float(nx);
+                float v = float(y + drand48())/float(ny);
+                Ray r = cam.getRay(u, v); 
+                px += color(r, world);
+            }
+            px = px / ns * 255.99;
             std::cout << int(px[0]) << " " << int(px[1]) << " "
                       << int(px[2]) << "\n";
         }
