@@ -57,6 +57,7 @@ class Vec3 {
 
 Vec3 operator*(Float f, const Vec3& v);
 Vec3 operator*(const Vec3& v, Float f);
+Vec3 operator*(const Vec3& v, const Vec3& u);
 Vec3 operator/(const Vec3& v, Float f);
 
 

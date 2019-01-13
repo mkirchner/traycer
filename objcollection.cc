@@ -7,7 +7,7 @@
 
 #include "objcollection.h"
 
-bool ObjCollection::getHit(const Ray& r, float tMin, float tMax, Hit& hit) const {
+bool ObjCollection::getHit(const Ray& r, float tMin, float tMax, IndexedHit& hit) const {
     float t;
     float tBest = tMax;
     bool anyHits = false;
@@ -20,7 +20,7 @@ bool ObjCollection::getHit(const Ray& r, float tMin, float tMax, Hit& hit) const
         }
     }
     if (anyHits) {
-        hit = objs_[iBest]->getHit(r, tBest);
+        hit = std::make_pair(iBest, objs_[iBest]->getHit(r, tBest));
     }
     return anyHits;
 }

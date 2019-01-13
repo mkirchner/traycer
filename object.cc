@@ -10,3 +10,6 @@
 Object::~Object() {
 }
 
+Material::Ptr Object::getMaterial() const {
+    return material_;
+}

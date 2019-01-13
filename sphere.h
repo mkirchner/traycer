@@ -8,14 +8,16 @@
 #ifndef SPHERE_H
 #define SPHERE_H
 
+#include "hit.h"
+#include "material.h"
 #include "object.h"
 #include "ray.h"
 #include "vec3.h"
 
 class Sphere : public Object {
     public:
-        Sphere(const Vec3& center, float radius)
-            : center_(center), radius_(radius) {}
+        Sphere(Material::Ptr material, const Vec3& center, float radius)
+            : Object(material), center_(center), radius_(radius) {}
         virtual ~Sphere() {}
         virtual bool testHit(const Ray& r, float tMin, float tMax, float* t);
         virtual Hit getHit(const Ray& r, float t);

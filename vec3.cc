@@ -33,6 +33,11 @@ Vec3 operator*(const Vec3& v, const Float f) {
     return Vec3(f*v[0], f*v[1], f*v[2]);
 }
 
+Vec3 operator*(const Vec3& v, const Vec3& u) {
+    // element-wise multiplication
+    return Vec3(u[0]*v[0], u[1]*v[1], u[2]*v[2]);
+}
+
 Vec3 operator/(const Vec3& v, const Float f) {
     return Vec3(v[0]/f, v[1]/f, v[2]/f);
 }
