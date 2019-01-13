@@ -9,4 +9,11 @@ Build & run
 
         $ make && ./traycer > test.ppm && open test.ppm
 
+Examples
+--------
+
+### Metal
+
+![Metal example](https://github.com/mkirchner/traycer/blob/master/examples/metal.png)
+
 [shirley]: https://github.com/petershirley/raytracinginoneweekend
