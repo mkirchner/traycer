@@ -15,7 +15,6 @@ bool ObjCollection::getHit(const Ray& r, float tMin, float tMax, Hit& hit) const
     for (size_t i = 0; i < objs_.size(); ++i) {
         if (objs_[i]->testHit(r, tMin, tBest, &t)) {
             tBest = t;
-            // std::cout << "tBest = " << tBest << std::endl;
             iBest = i;
             anyHits = true;
         }
