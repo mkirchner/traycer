@@ -9,7 +9,7 @@ LDFLAGS=-g
 LDLIBS=
 RM=rm -f
 
-BINARY=rtrace
+BINARY=traycer
 SRCS=main.cc objcollection.cc object.cc ray.cc sphere.cc vec3.cc 
 OBJS=$(subst .cc,.o,$(SRCS))
 
