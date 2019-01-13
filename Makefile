@@ -10,12 +10,12 @@ LDLIBS=
 RM=rm -f
 
 BINARY=traycer
-SRCS=main.cc objcollection.cc object.cc ray.cc sphere.cc vec3.cc 
+SRCS=camera.cc main.cc objcollection.cc object.cc ray.cc sphere.cc vec3.cc
 OBJS=$(subst .cc,.o,$(SRCS))
 
 all: $(BINARY)
 
-rtrace: $(OBJS)
+traycer: $(OBJS)
 	$(CXX) $(LDFLAGS) -o $(BINARY) $(OBJS) $(LDLIBS)
 
 %.o: %.c
