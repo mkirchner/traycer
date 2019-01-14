@@ -11,6 +11,7 @@
 #include <memory>
 
 #include "camera.h"
+#include "dielectric.h"
 #include "hit.h"
 #include "lambertian.h"
 #include "material.h"
@@ -47,7 +48,7 @@ Vec3 color(const Ray& r, const ObjCollection& world, int n) {
 void writeImage() {
     int nx = 400;
     int ny = 200;
-    int ns = 100;
+    int ns = 200;
     // camera position
     Vec3 lower_left(-2.0, -1.0, -1.0);
     Vec3 origin(0.0, 0.0, 0.0);
@@ -57,23 +58,32 @@ void writeImage() {
     ObjCollection world;
     // material
     Vec3 albedo = Vec3(0.04, 0.4, 0.14);
-    Material::Ptr lambertianRed = std::make_shared<Lambertian>(albedo);
+    Material::Ptr lambertianGreen = std::make_shared<Lambertian>(albedo);
     albedo = Vec3(0.99, 0.87, 0.15);
     Material::Ptr lambertianBlue = std::make_shared<Lambertian>(albedo);
+    albedo = Vec3(0.8, 0.6, 0.2);
+	float fuzz = 0.1;
+    Material::Ptr gold = std::make_shared<Metal>(albedo, fuzz);
     albedo = Vec3(0.8, 0.8, 0.8);
-    Material::Ptr metal = std::make_shared<Metal>(albedo);
+    Material::Ptr silver = std::make_shared<Metal>(albedo);
+	float ri = 1.5;
+    Material::Ptr glass = std::make_shared<Dielectric>(ri);
     // left sphere
-    Vec3 center = Vec3(-0.55, 0.0, -1.0);
+    Vec3 center = Vec3(-0.55, 0.0, -1.5);
     float radius = 0.5;
-    world.addObject(std::make_shared<Sphere>(metal, center, radius));
+    world.addObject(std::make_shared<Sphere>(gold, center, radius));
     // right sphere
-    center = Vec3(0.55, 0.0, -1.0);
+    center = Vec3(0.55, 0.0, -1.5);
     radius = 0.5;
-    world.addObject(std::make_shared<Sphere>(lambertianBlue, center, radius));
+    world.addObject(std::make_shared<Sphere>(silver, center, radius));
+	// small sphere
+    center = Vec3(0.1, -0.4, -1.05);
+    radius = 0.2;
+    world.addObject(std::make_shared<Sphere>(glass, center, radius));
     // ground sphere
     center = Vec3(0.0, -100.5, -1.0);
     radius = 100.0;
-    world.addObject(std::make_shared<Sphere>(lambertianRed, center, radius));
+    world.addObject(std::make_shared<Sphere>(lambertianGreen, center, radius));
     std::cout << "P3\n" << nx << " " << ny << "\n255\n";
     for (int y = ny-1; y >=0; --y) {
         for (int x = 0; x < nx; ++x) {

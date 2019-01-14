@@ -16,4 +16,8 @@ Examples
 
 ![Metal example](https://github.com/mkirchner/traycer/blob/master/examples/metal.png)
 
+### Dielectric (glass)
+
+![Dielectric example](https://github.com/mkirchner/traycer/blob/master/examples/dielectric.png)
+
 [shirley]: https://github.com/petershirley/raytracinginoneweekend

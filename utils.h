@@ -10,7 +10,9 @@
 
 #include "vec3.h"
 
-Vec3 sample_from_unit_sphere();
 Vec3 reflect(const Vec3& v, const Vec3& n);
+bool refract(const Vec3& v, const Vec3& n, float nRatio, Vec3& refracted);
+Vec3 sample_from_unit_sphere();
+float schlick(float cosine, float refractiveIndex);
 
 #endif /* !UTILS_H */
