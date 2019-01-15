@@ -126,7 +126,7 @@ Float Vec3::dot(const Vec3& l, const Vec3& r) {
 
 Vec3 Vec3::cross(const Vec3& l, const Vec3& r) {
     return Vec3(l.e_[1]*r.e_[2] - l.e_[2]*r.e_[1],
-                -l.e_[0]*r.e_[2] - l.e_[2]*r.e_[0],
+                -(l.e_[0]*r.e_[2] - l.e_[2]*r.e_[0]),
                 l.e_[0]*r.e_[1] - l.e_[1]*r.e_[0]);
 }
 

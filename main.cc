@@ -48,13 +48,12 @@ Vec3 color(const Ray& r, const ObjCollection& world, int n) {
 void writeImage() {
     int nx = 400;
     int ny = 200;
-    int ns = 200;
+    int ns = 100;
     // camera position
-    Vec3 lower_left(-2.0, -1.0, -1.0);
-    Vec3 origin(0.0, 0.0, 0.0);
-    Vec3 vx(4.0, 0.0, 0.0);
-    Vec3 vy(0.0, 2.0, 0.0);
-    Camera cam(lower_left, vx, vy, origin);
+    Vec3 origin(1.0, 1.0, 0.0);
+    Vec3 lookAt(0.0, 0.0, -1.0);
+    Vec3 vup(0.0, 1.0, 0.0);
+	Camera cam(origin, lookAt, vup, 50, float(nx)/float(ny));
     ObjCollection world;
     // material
     Vec3 albedo = Vec3(0.04, 0.4, 0.14);

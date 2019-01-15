@@ -9,11 +9,12 @@
 #define CAMERA_H
 
 #include "ray.h"
+#include "vec3.h"
 
 class Camera {
     public:
-        Camera(const Vec3& llc, const Vec3& vx, const Vec3& vy, const Vec3& origin)
-            : llc_(llc), vx_(vx), vy_(vy), origin_(origin) {}
+        Camera(const Vec3& origin, const Vec3& lookAt, const Vec3& vup,
+               float vFov, float aspect);
         Ray getRay(float u, float v) const;
 
     private:
