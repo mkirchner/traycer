@@ -20,4 +20,8 @@ Examples
 
 ![Dielectric example](https://github.com/mkirchner/traycer/blob/master/examples/dielectric.png)
 
+### Movable camera
+
+![Movable camera example](https://github.com/mkirchner/traycer/blob/master/examples/movable_cam.png)
+
 [shirley]: https://github.com/petershirley/raytracinginoneweekend
