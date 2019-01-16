@@ -24,4 +24,8 @@ Examples
 
 ![Movable camera example](https://github.com/mkirchner/traycer/blob/master/examples/movable_cam.png)
 
+### Depth of field
+
+![Depth of field example](https://github.com/mkirchner/traycer/blob/master/examples/dof.png)
+
 [shirley]: https://github.com/petershirley/raytracinginoneweekend

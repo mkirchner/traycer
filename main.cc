@@ -50,10 +50,11 @@ void writeImage() {
     int ny = 200;
     int ns = 100;
     // camera position
-    Vec3 origin(1.0, 1.0, 0.0);
-    Vec3 lookAt(0.0, 0.0, -1.0);
+    Vec3 origin(1.0, 0.5, 1.0);
+    Vec3 lookAt(0.0, 0.0, -1.5);
     Vec3 vup(0.0, 1.0, 0.0);
-	Camera cam(origin, lookAt, vup, 50, float(nx)/float(ny));
+    Camera cam(origin, lookAt, vup, 40, float(nx)/float(ny),
+               1.0, (origin-lookAt).norm());
     ObjCollection world;
     // material
     Vec3 albedo = Vec3(0.04, 0.4, 0.14);

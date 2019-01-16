@@ -14,11 +14,12 @@
 class Camera {
     public:
         Camera(const Vec3& origin, const Vec3& lookAt, const Vec3& vup,
-               float vFov, float aspect);
+               float vFov, float aspect, float aperture, float focusDist);
         Ray getRay(float u, float v) const;
 
     private:
-        Vec3 llc_, vx_, vy_, origin_;
+        Vec3 llc_, vx_, vy_, origin_, cz_, cx_, cy_;
+        float aperture_;
 
 };
 
