@@ -2,8 +2,8 @@
 # rtrace Makefile
 #
 
-CXX=g++
-CPPFLAGS=-g
+CXX=clang++
+CPPFLAGS=-g -std=c++11
 CFLAGS=-Wall
 LDFLAGS=-g
 LDLIBS=
