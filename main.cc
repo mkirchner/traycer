@@ -13,6 +13,7 @@
 
 #include "camera.h"
 #include "dielectric.h"
+#include "diffuselight.h"
 #include "hit.h"
 #include "lambertian.h"
 #include "material.h"
@@ -30,19 +31,19 @@ const Vec3 BLUE = Vec3(0.2, 0.5, 1.0);
 Vec3 color(const Ray& r, const ObjCollection& world, int n) {
     ObjCollection::IndexedHit indexedHit;
     if (world.getHit(r, 0.001, FLT_MAX, indexedHit)) {
-	size_t index = indexedHit.first;
-	Hit hit = indexedHit.second;
-	Ray scattered;
-	Vec3 attenuation;
-        if (n < 25 && world.getObject(index)->getMaterial()->scatter(r, hit, attenuation, scattered)) {
-			return attenuation * color(scattered, world, n+1);
+        size_t index = indexedHit.first;
+        Hit hit = indexedHit.second;
+        Ray scattered;
+        Vec3 attenuation;
+	Material::Ptr material = world.getObject(index)->getMaterial();
+	Vec3 emission = material->emit(0.0, 0.0, Vec3(0.0, 0.0, 0.0));
+        if (n < 25 && material->scatter(r, hit, attenuation, scattered)) {
+		return emission + attenuation * color(scattered, world, n+1);
         } else {
-          return Vec3(0.0, 0.0, 0.0);
+            return emission;
         }
     } else {
-        float t = 0.5 * (r.direction().normalized().y() + 1.0);
-        Vec3 lerp = (1.0-t) * WHITE + t * BLUE;
-        return lerp;
+        return Vec3(0.1, 0.15, 0.25);
     }
 }
 
@@ -76,6 +77,15 @@ ObjCollection createWorld() {
     center = Vec3(0.0, -100.5, -1.0);
     radius = 100.0;
     world.addObject(std::make_shared<Sphere>(lambertianGreen, center, radius));
+    // light
+    center = Vec3(-1.1, 50.0, 1.05);
+    radius = 2;
+    Vec3 color = Vec3(1.0, 1.0, 1.0);
+    Material::Ptr light = std::make_shared<DiffuseLight>(color);
+    world.addObject(std::make_shared<Sphere>(light, center, radius));
+    center = Vec3(1.1, 50.0, -1.05);
+    radius = 2;
+    world.addObject(std::make_shared<Sphere>(light, center, radius));
     return world;
 }
 

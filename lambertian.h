@@ -14,7 +14,7 @@
 
 class Lambertian : public Material {
     public:
-        Lambertian(const Vec3& albedo) : albedo_(albedo) {}
+        Lambertian(const Vec3& albedo) : Material(), albedo_(albedo) {}
         ~Lambertian() {}
 
         virtual bool scatter(const Ray& r, const Hit& hit, Vec3& attenuation, Ray& scattered) const;

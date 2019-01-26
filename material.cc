@@ -10,3 +10,7 @@
 
 Material::~Material() {
 }
+
+Vec3 Material::emit(float u, float v, const Vec3& p) const {
+    return Vec3(0.0, 0.0, 0.0);
+}

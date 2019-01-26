@@ -14,7 +14,7 @@
 
 class Metal : public Material {
     public:
-        Metal(const Vec3& albedo, float fuzz = 0.0) : albedo_(albedo), fuzz_(fuzz) {}
+        Metal(const Vec3& albedo, float fuzz = 0.0) : Material(), albedo_(albedo), fuzz_(fuzz) {}
         ~Metal() {}
 
         virtual bool scatter(const Ray& r, const Hit& hit, Vec3& attenuation, Ray& scattered) const;

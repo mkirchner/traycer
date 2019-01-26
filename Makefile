@@ -10,7 +10,7 @@ LDLIBS=
 RM=rm -f
 
 BINARY=traycer
-SRCS=camera.cc dielectric.cc lambertian.cc main.cc material.cc metal.cc objcollection.cc object.cc ray.cc sphere.cc utils.cc vec3.cc
+SRCS=camera.cc dielectric.cc diffuselight.cc lambertian.cc main.cc material.cc metal.cc objcollection.cc object.cc ray.cc sphere.cc utils.cc vec3.cc
 OBJS=$(subst .cc,.o,$(SRCS))
 
 all: $(BINARY)

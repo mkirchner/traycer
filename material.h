@@ -17,6 +17,7 @@ class Material {
         typedef std::shared_ptr<Material> Ptr;
         virtual ~Material() = 0;
         virtual bool scatter(const Ray& r, const Hit& hit, Vec3& attenuation, Ray& scattered) const = 0;
+	virtual Vec3 emit(float u, float v, const Vec3& p) const;
 };
 
 

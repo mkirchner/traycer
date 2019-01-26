@@ -14,7 +14,7 @@
 
 class Dielectric : public Material {
     public:
-        Dielectric(float refractiveIndex) : refractiveIndex_(refractiveIndex) {}
+        Dielectric(float refractiveIndex) : Material(), refractiveIndex_(refractiveIndex) {}
         ~Dielectric() {}
 
         virtual bool scatter(const Ray& r, const Hit& hit, Vec3& attenuation, Ray& scattered) const;
