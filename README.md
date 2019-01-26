@@ -28,4 +28,8 @@ Examples
 
 ![Depth of field example](https://github.com/mkirchner/traycer/blob/master/examples/dof.png)
 
+### Lighting
+
+![Lighting example](https://github.com/mkirchner/traycer/blob/master/examples/lighting.png)
+
 [shirley]: https://github.com/petershirley/raytracinginoneweekend

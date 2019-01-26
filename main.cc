@@ -35,15 +35,16 @@ Vec3 color(const Ray& r, const ObjCollection& world, int n) {
         Hit hit = indexedHit.second;
         Ray scattered;
         Vec3 attenuation;
-	Material::Ptr material = world.getObject(index)->getMaterial();
-	Vec3 emission = material->emit(0.0, 0.0, Vec3(0.0, 0.0, 0.0));
+        Material::Ptr material = world.getObject(index)->getMaterial();
+        Vec3 emission = material->emit(0.0, 0.0, Vec3(0.0, 0.0, 0.0));
         if (n < 25 && material->scatter(r, hit, attenuation, scattered)) {
-		return emission + attenuation * color(scattered, world, n+1);
+                return emission + attenuation * color(scattered, world, n+1);
         } else {
             return emission;
         }
     } else {
-        return Vec3(0.1, 0.15, 0.25);
+        return Vec3(0.0, 0.0, 0.0);
+        // return Vec3(0.1, 0.15, 0.25);
     }
 }
 
@@ -69,8 +70,8 @@ ObjCollection createWorld() {
     center = Vec3(0.55, 0.0, -1.5);
     radius = 0.5;
     world.addObject(std::make_shared<Sphere>(silver, center, radius));
-	// small sphere
-    center = Vec3(0.1, -0.4, -1.05);
+        // small sphere
+    center = Vec3(0.1, -0.3, -1.05);
     radius = 0.2;
     world.addObject(std::make_shared<Sphere>(glass, center, radius));
     // ground sphere
@@ -79,12 +80,12 @@ ObjCollection createWorld() {
     world.addObject(std::make_shared<Sphere>(lambertianGreen, center, radius));
     // light
     center = Vec3(-1.1, 50.0, 1.05);
-    radius = 2;
-    Vec3 color = Vec3(1.0, 1.0, 1.0);
+    radius = 20;
+    Vec3 color = 3*Vec3(1.0, 1.0, 1.0);
     Material::Ptr light = std::make_shared<DiffuseLight>(color);
     world.addObject(std::make_shared<Sphere>(light, center, radius));
     center = Vec3(1.1, 50.0, -1.05);
-    radius = 2;
+    radius = 10;
     world.addObject(std::make_shared<Sphere>(light, center, radius));
     return world;
 }
@@ -92,13 +93,13 @@ ObjCollection createWorld() {
 void writeImage() {
     int nx = 400;
     int ny = 200;
-    int ns = 100;
+    int ns = 300;
     // camera position
     Vec3 origin(1.0, 0.5, 1.0);
     Vec3 lookAt(0.0, 0.0, -1.5);
     Vec3 vup(0.0, 1.0, 0.0);
     Camera cam(origin, lookAt, vup, 40, float(nx)/float(ny),
-               0.2, (origin-lookAt).norm());
+               0.1, (origin-lookAt).norm());
     ObjCollection world = createWorld();
 
     std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
@@ -114,16 +115,17 @@ void writeImage() {
             }
             px = px / ns;
             // approximate gamma correction
-            px = Vec3(sqrt(px[0]), sqrt(px[1]), sqrt(px[2]));
-            px *= 255.99;
+            px = Vec3(fmin(255.0, 255.00*sqrt(px[0])),
+                      fmin(255.0, 255.00*sqrt(px[1])),
+                      fmin(255.0, 255.00*sqrt(px[2])));
             std::cout << int(px[0]) << " " << int(px[1]) << " "
                       << int(px[2]) << "\n";
         }
     }
     std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
     std::cerr << "Elapsed: "
-	      << std::chrono::duration_cast<std::chrono::milliseconds>(end - begin).count()/1000.0
-	      << "s" << std::endl;
+              << std::chrono::duration_cast<std::chrono::milliseconds>(end - begin).count()/1000.0
+              << "s" << std::endl;
 }
 
 int main(int argc, char* argv[]) {
